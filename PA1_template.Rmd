@@ -99,6 +99,9 @@ plot(mean_data$interval,
 ```
      
 
+
+
+
 ### Which 5 min interval on average across all days in the dataset contains the maximum number of steps?
 
 ```{r}
@@ -148,7 +151,9 @@ sum_data <- aggregate(activity$steps, by=list(activity$date), FUN=sum)
 
 #### Renaming the attributes
 names(sum_data) <- c("date", "total")
+```
 
+```{r}
 #### Computing the histogram of the total number of steps each day
 hist(sum_data$total, 
      breaks=seq(from=0, to=25000, by=2500),
@@ -156,14 +161,18 @@ hist(sum_data$total,
      xlab="Total number of steps", 
      ylim=c(0, 30), 
      main="Histogram of the total number of steps taken each day\n(NA replaced by mean value)")
+```
 
+```{r}
 #### Mean and medians:
 
 mean(sum_data$total)
 median(sum_data$total)
 
-#### Mean is 10766.19, median is 10766.19
 ```
+
+#### Mean is 10766.19, median is 10766.19
+
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
