@@ -38,9 +38,6 @@ head(activity)
 ```
 
 
-### Clearing the workspace of activity_raw
-
-rm(activity_raw)
 
 
 ## What is mean total number of steps taken per day?
@@ -79,8 +76,6 @@ median(sum_data$total)
 
 ### Make a time series plot of the 5 min interval and the average number of steps taken, averaged across all days.
 
-#### Clearing the workspace
-rm(sum_data)
 
 #### Computing the means of steps accross all days for each interval
 mean_data <- aggregate(activity$steps, 
@@ -112,9 +107,6 @@ max_pos <- which(mean_data$mean == max(mean_data$mean))
 
 #### Looking up the value of interval at this position
 max_interval <- mean_data[max_pos, 1]
-
-#### Clearing the workspace
-rm(max_pos, mean_data)
 ```
 
 
@@ -124,16 +116,12 @@ rm(max_pos, mean_data)
 ### Calculate and report the total number of missing values in the dataset.
 
 ```{r}
-#### Clearing the workspace
-rm(max_interval)
 
 #### Using the trick that a TRUE boolean value is equivalent to 1 and a FALSE to 0.
 NA_count <- sum(is.na(activity$steps))
 
 ### Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
 
-#### Clearing the workspace
-rm(NA_count)
 
 #### Finding the NA positions
 na_pos <- which(is.na(activity$steps))
@@ -149,8 +137,6 @@ mean_vec <- rep(mean(activity$steps, na.rm=TRUE), times=length(na_pos))
 #### Replacing the NAs by the means
 activity[na_pos, "steps"] <- mean_vec
 
-#### Clearing the workspace
-rm(mean_vec, na_pos)
 ```
 
 
@@ -192,9 +178,6 @@ head(activity)
 ### Make a panel plot containing a time series plot (i.e. type = "l") of the 5- minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
 ```{r}
-#### Clearing the workspace
-rm(sum_data)
-
 #### Loading the lattice graphical library
 library(lattice)
 
