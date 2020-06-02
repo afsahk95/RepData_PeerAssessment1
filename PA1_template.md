@@ -5,23 +5,17 @@ output:
     keep_md: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
-```{r, include=FALSE}
-# set time zone to GMT and loading package
-Sys.setenv(TZ='GMT')
-library(tidyverse)
-library(hms)
-```
+
+
 
 
 
 
 ## Loading and preprocessing the data
 
-```{r}
+
+```r
 activity_raw <- read.csv("activity.csv", stringsAsFactors=FALSE)
 activity_raw$date <- as.POSIXct(activity_raw$date, format="%Y-%m-%d")
 activity_raw <- data.frame(date=activity_raw$date,weekday=tolower(weekdays(activity_raw$date)), steps=activity_raw$steps,interval=activity_raw$interval)
@@ -35,6 +29,16 @@ activity <- data.frame(date=activity_raw$date,
                        interval=activity_raw$interval,
                        steps=activity_raw$steps)
 head(activity)
+```
+
+```
+##         date weekday daytype interval steps
+## 1 2012-10-01  monday weekday        0    NA
+## 2 2012-10-01  monday weekday        5    NA
+## 3 2012-10-01  monday weekday       10    NA
+## 4 2012-10-01  monday weekday       15    NA
+## 5 2012-10-01  monday weekday       20    NA
+## 6 2012-10-01  monday weekday       25    NA
 ```
 
 
@@ -52,7 +56,8 @@ names(sum_data) <- c("date", "total")
 
 #### Histogram plotting
 
-```{r}
+
+```r
 hist(sum_data$total, 
      breaks=seq(from=0, to=25000, by=2500),
      col="red", 
@@ -61,12 +66,29 @@ hist(sum_data$total,
      main="Histogram of the total number of steps taken each day\n(NA removed)")
 ```
 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
+
 ### Calculate and report the mean and median total number of steps taken each day.
 
-```{r}
+
+```r
 mean(sum_data$total)
+```
+
+```
+## [1] 10766.19
+```
+
+```r
 #### Mean is 9354.23
 median(sum_data$total)
+```
+
+```
+## [1] 10766.19
+```
+
+```r
 #### Median is 10395.
 ```
 
@@ -87,7 +109,8 @@ mean_data <- aggregate(activity$steps,
 names(mean_data) <- c("interval", "mean")
 
 #### Plotting the time series plot
-```{r}
+
+```r
 plot(mean_data$interval, 
      mean_data$mean, 
      type="l", 
@@ -97,6 +120,8 @@ plot(mean_data$interval,
      ylab="Average number of steps", 
      main="Time-series of the average number of steps per intervals\n(NA removed)")
 ```
+
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
      
 
 
@@ -104,7 +129,8 @@ plot(mean_data$interval,
 
 ### Which 5 min interval on average across all days in the dataset contains the maximum number of steps?
 
-```{r}
+
+```r
 #### Finding the position of the maximum mean
 max_pos <- which(mean_data$mean == max(mean_data$mean))
 
@@ -118,8 +144,8 @@ max_interval <- mean_data[max_pos, 1]
 
 ### Calculate and report the total number of missing values in the dataset.
 
-```{r}
 
+```r
 #### Using the trick that a TRUE boolean value is equivalent to 1 and a FALSE to 0.
 NA_count <- sum(is.na(activity$steps))
 
@@ -136,16 +162,17 @@ mean_vec <- rep(mean(activity$steps, na.rm=TRUE), times=length(na_pos))
 
 ### Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
-```{r}
+
+```r
 #### Replacing the NAs by the means
 activity[na_pos, "steps"] <- mean_vec
-
 ```
 
 
 ### Make a histogram of the total number of steps taken each day and calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
-```{r}
+
+```r
 #### Computing the total number of steps each day (NA values removed)
 sum_data <- aggregate(activity$steps, by=list(activity$date), FUN=sum)
 
@@ -153,7 +180,8 @@ sum_data <- aggregate(activity$steps, by=list(activity$date), FUN=sum)
 names(sum_data) <- c("date", "total")
 ```
 
-```{r}
+
+```r
 #### Computing the histogram of the total number of steps each day
 hist(sum_data$total, 
      breaks=seq(from=0, to=25000, by=2500),
@@ -163,12 +191,25 @@ hist(sum_data$total,
      main="Histogram of the total number of steps taken each day\n(NA replaced by mean value)")
 ```
 
-```{r}
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)
+
+
+```r
 #### Mean and medians:
 
 mean(sum_data$total)
-median(sum_data$total)
+```
 
+```
+## [1] 10766.19
+```
+
+```r
+median(sum_data$total)
+```
+
+```
+## [1] 10766.19
 ```
 
 #### Mean is 10766.19, median is 10766.19
@@ -179,14 +220,26 @@ median(sum_data$total)
 ### Create a new factor variable in the dataset with two levels - “weekdays” and “weekend” indicating whether a given date is a weekday or weekend day.
 
 
-```{r}
+
+```r
 #### The new factor variable "daytype" is already in the activity data frame
 head(activity)
 ```
 
+```
+##         date weekday daytype interval   steps
+## 1 2012-10-01  monday weekday        0 37.3826
+## 2 2012-10-01  monday weekday        5 37.3826
+## 3 2012-10-01  monday weekday       10 37.3826
+## 4 2012-10-01  monday weekday       15 37.3826
+## 5 2012-10-01  monday weekday       20 37.3826
+## 6 2012-10-01  monday weekday       25 37.3826
+```
+
 ### Make a panel plot containing a time series plot (i.e. type = "l") of the 5- minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
-```{r}
+
+```r
 #### Loading the lattice graphical library
 library(lattice)
 
@@ -206,7 +259,7 @@ xyplot(mean ~ interval | daytype, mean_data,
        ylab="Number of steps", 
        layout=c(1,2))
 ```
+
+![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png)
 # End
 
-library(knitr)
-knit('PA1_template.Rmd', encoding = 'UTF-8')
