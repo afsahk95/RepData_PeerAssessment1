@@ -10,6 +10,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r global_options}
+knitr::opts_chunk$set(fig.path='Figs/')
+```
 
 ```{r, include=FALSE}
 # set time zone to GMT and loading package

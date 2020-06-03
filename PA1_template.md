@@ -66,7 +66,7 @@ ggplot(data = steps_per_day, aes(x= steps)) + geom_histogram(fill="red", colour 
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 
 Mean and median number of steps for each day
@@ -99,7 +99,7 @@ with(data = avg_per_day,
      ))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
 
 
 The 5-minute interval that, on average, contains the maximum number of steps:
@@ -195,7 +195,7 @@ ggplot(data = steps_per_day02, aes(x= steps)) + geom_histogram(fill="red", colou
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
 
 
 Mean and median number of steps taken each day
@@ -223,7 +223,7 @@ with(data = avg_per_interval02 ,
            ))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
@@ -268,6 +268,9 @@ with(data = avg_per_weekend, plot(steps, type='l',
           col=rgb(0.9,0.4,0.4,0.8)))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
 
 The graphs display clear differences in patterns between
+
+rmarkdown::render("PA1_template.Rmd")
+
