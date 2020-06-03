@@ -158,3 +158,6 @@ with(data = avg_per_weekend, plot(steps, type='l',
 ```
 
 The graphs display clear differences in patterns between
+
+rmarkdown::render("PA1_template.Rmd")
+

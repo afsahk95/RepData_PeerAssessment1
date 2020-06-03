@@ -34,16 +34,6 @@ mydata <- read_csv(unzip(temp, "activity.csv"), na = c("NA",NA), col_names = TRU
 ```r
 unlink(temp)
 mydata <- tbl_df(mydata)
-```
-
-```
-## Warning: `tbl_df()` is deprecated as of dplyr 1.0.0.
-## Please use `tibble::as_tibble()` instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_warnings()` to see where this warning was generated.
-```
-
-```r
 head(mydata)
 ```
 
@@ -76,7 +66,7 @@ ggplot(data = steps_per_day, aes(x= steps)) + geom_histogram(fill="red", colour 
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 
 Mean and median number of steps for each day
@@ -109,7 +99,7 @@ with(data = avg_per_day,
      ))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
 
 
 The 5-minute interval that, on average, contains the maximum number of steps:
@@ -205,10 +195,10 @@ ggplot(data = steps_per_day02, aes(x= steps)) + geom_histogram(fill="red", colou
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
 
 
-Mean and median number of steps taken each day of the filled dataset (without NA)
+Mean and median number of steps taken each day
 
 
 ```r
@@ -220,7 +210,7 @@ summary(steps_per_day02$steps )
 ##      41    9819   10766   10766   12811   21194
 ```
 
-Time series plot of the average number of steps taken of the filled dataset (without NA)
+Time series plot:
 
 ```r
 avg_per_interval02 <-aggregate(steps ~ interval, data = mydata02, sum, na.rm = TRUE)
@@ -233,12 +223,12 @@ with(data = avg_per_interval02 ,
            ))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
 
-To determine a difference in activity patterns between weekdays and weekends, we will create a new factor "type_of_day" ("weekend" & "weekday") and and plotting the average of steps by interval for weekdays and weekend
+To determine this:
 
 ```r
 mydata02 <- mutate(mydata02, type_of_day = ifelse(weekdays(mydata02$date) == "Saturday" | weekdays(mydata02$date) == "Sunday", "weekend", "weekday"))
@@ -278,6 +268,6 @@ with(data = avg_per_weekend, plot(steps, type='l',
           col=rgb(0.9,0.4,0.4,0.8)))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
 
 The graphs display clear differences in patterns between
